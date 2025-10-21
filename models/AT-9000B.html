@@ -318,50 +318,42 @@
     </script>
     <link rel="stylesheet" href="../assets/style.css">
 
-<!-- mobile override v5 -->
+
+<!-- mobile override v8 -->
 <style>
+  /* Safety */
   html, body { max-width:100%; overflow-x:hidden; }
   *, *::before, *::after { box-sizing:border-box; min-width:0; }
   input, select, textarea, button { font-size:16px; }
 
-  /* index/list grid fallback */
+  /* Grid fixes */
   @media (max-width: 980px){
     .products, .cards, .card-grid, .grid-cards, .list-cards, .index-cards, .grid {
       grid-template-columns: repeat(2, minmax(0,1fr)) !important;
     }
-  }
-  @media (max-width: 560px){
-    .products, .cards, .card-grid, .grid-cards, .list-cards, .index-cards, .grid {
-      grid-template-columns: 1fr !important;
-    }
-  }
-
-  /* detail spec grid force */
-  @media (max-width: 980px){
     .kv-grid, .spec-grid, .specs, .grid.specs, .grid.kv, .grid.kv-grid, main .kv-grid, main .spec-grid, .model .grid.specs {
       grid-template-columns: repeat(2, minmax(0,1fr)) !important;
     }
   }
-  @media (max-width: 560px){
-    .kv-grid, .spec-grid, .specs, .grid.specs, .grid.kv, .grid.kv-grid, main .kv-grid, main .spec-grid, .model .grid.specs {
-      grid-template-columns: 1fr !important;
-    }
-  }
-
-  /* calculator grid */
   @media (max-width: 640px){
-    #elec-calc .grid, #elec-calc .row, .calc-grid { grid-template-columns: 1fr !important; }
+    .products, .cards, .card-grid, .grid-cards, .list-cards, .index-cards, .grid,
+    .kv-grid, .spec-grid, .specs, .grid.specs, .grid.kv, .grid.kv-grid, main .kv-grid, main .spec-grid, .model .grid.specs,
+    #elec-calc .grid, #elec-calc .row, .calc-grid {
+      grid-template-columns: 1fr !important;
+    }
   }
 
-  /* Q&A: Question(normal), Answer(bigger) */
-  /* Q (summary) */
-  details summary { font-size: clamp(15px, 3.8vw, 17px); line-height:1.5; }
-  /* A (answer body) */
+  /* Q&A Typography: A is (Q - 2px) */
+  :root{ --qa-q-size: clamp(20px, 1.7vw, 22px); }           /* desktop default */
+  @media (max-width: 1024px){ :root{ --qa-q-size: clamp(18px, 4.6vw, 20px); } }
+  @media (max-width: 480px){ :root{ --qa-q-size: clamp(16px, 4.8vw, 18px); } }
+
+  details summary { font-size: var(--qa-q-size); line-height: 1.55; }
   details > div, details .answer, details .a, .qa-answer {
-    font-size: clamp(17px, 4.8vw, 19px);
-    line-height: 1.75;
+    font-size: calc(var(--qa-q-size) - 2px);
+    line-height: 1.8;
   }
-  details > div p{ margin: 8px 0; }
+  details > div p{ margin: 10px 0; }
 </style>
 
 </head>
