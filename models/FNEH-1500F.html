@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FNEH-1500F | 상세 · FAQ</title>
+    <script>
+      function imgFallback(img, base) {
+        var order = ["jpg", "png", "jpeg", "webp", "JPG", "PNG"];
+        var tried = img.getAttribute("data-try") || "0";
+        var i = parseInt(tried, 10);
+        if (i < order.length) {
+          img.setAttribute("data-try", String(i + 1));
+          img.src = base + "." + order[i];
+        } else {
+          img.src = "assets/placeholder.png";
+        }
+      }
+    </script>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap");
+      :root {
+        --bg: #f6f8fb;
+        --card: #ffffff;
+        --ink: #0f172a;
+        --muted: #64748b;
+        --brand: #0ea5e9;
+        --chip: #e2e8f0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto,
+          Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      h1 {
+        font-size: 28px;
+        margin: 0 0 16px 0;
+      }
+      .notice {
+        background: #eef6ff;
+        border: 1px solid #dbeafe;
+        padding: 12px 16px;
+        border-radius: 12px;
+        color: #1e293b;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 12px;
+      }
+      .card {
+        background: var(--card);
+        border-radius: 16px;
+        padding: 16px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 1px 0 rgba(2, 6, 23, 0.05);
+      }
+      .card:hover {
+        box-shadow: 0 8px 24px rgba(2, 6, 23, 0.08);
+        transform: translateY(-2px);
+        transition: 0.18s;
+      }
+      .model {
+        display: flex;
+        gap: 14px;
+      }
+      .model img {
+        width: 88px;
+        height: 88px;
+        border-radius: 12px;
+        object-fit: cover;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+      }
+      .model .meta {
+        flex: 1;
+      }
+      .model .title {
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+      .model .desc {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.4;
+        margin-top: 4px;
+        height: 32px;
+        overflow: hidden;
+      }
+      .model .price {
+        font-weight: 800;
+        margin-top: 8px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        background: var(--chip);
+        color: #0f172a;
+      }
+      .meta-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .btn {
+        display: inline-block;
+        background: var(--ink);
+        color: #fff;
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-weight: 700;
+      }
+      .btn.secondary {
+        background: #1f2937;
+      }
+      .searchbar {
+        margin: 16px 0 8px;
+        display: flex;
+        gap: 8px;
+      }
+      .searchbar input {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+      }
+      .toolbar {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 4px;
+      }
+      .chip {
+        background: #f1f5f9;
+        border: 1px solid #e5e7eb;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        color: #0f172a;
+      }
+      .footer {
+        margin-top: 40px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      /* 상세 */
+      .hero {
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+      }
+      .hero img {
+        width: 360px;
+        height: 360px;
+        object-fit: cover;
+        border-radius: 16px;
+        border: 1px solid #e2e8f0;
+        background: #f8fafc;
+      }
+      .spec {
+        flex: 1;
+      }
+      .spec h2 {
+        margin: 0 0 8px 0;
+      }
+      .kv {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin: 12px 0;
+      }
+      .kv .item {
+        background: var(--bg);
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 10px 12px;
+      }
+      .kv .k {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .kv .v {
+        font-weight: 700;
+      }
+      .cta {
+        display: flex;
+        gap: 10px;
+        margin: 10px 0 20px;
+      }
+      .banner {
+        background: #0ea5e9;
+        color: #fff;
+        border-radius: 14px;
+        padding: 12px 14px;
+        margin: 10px 0;
+        font-weight: 700;
+      }
+      .qa h3 {
+        margin: 16px 0 10px;
+      }
+      .qa details {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 10px 12px;
+        margin: 6px 0;
+      }
+      .note {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      /* 비교 테이블 */
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+      }
+      .table th,
+      .table td {
+        border-bottom: 1px solid #e5e7eb;
+        padding: 10px 8px;
+        text-align: left;
+        font-size: 13px;
+      }
+      .table th {
+        background: #f8fafc;
+      }
+      .filterbar {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 12px 0;
+      }
+      select,
+      input[type="number"] {
+        padding: 8px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+      }
+
+      /* 이미지 제거 대응: 썸네일/히어로가 빈칸일 수 있어 공백 유지 */
+    </style>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const t = document.querySelector("#compare-table");
+        if (t) {
+          const r = [...t.querySelectorAll("tbody tr")],
+            q = (s) => document.querySelector(s);
+          function a() {
+            const f = q("#fFuel")?.value || "",
+              c = q("#fCat")?.value || "",
+              n = parseFloat(q("#fKwMin")?.value || 0),
+              x = parseFloat(q("#fKwMax")?.value || 999);
+            r.forEach((tr) => {
+              const k = parseFloat(tr.dataset.kw || 0);
+              tr.style.display =
+                (!f || tr.dataset.fuel?.includes(f)) &&
+                (!c || tr.dataset.cat?.includes(c)) &&
+                k >= n &&
+                k <= x
+                  ? ""
+                  : "none";
+            });
+          }
+          ["change", "keyup"].forEach((e) =>
+            ["#fFuel", "#fCat", "#fKwMin", "#fKwMax"].forEach((id) =>
+              q(id)?.addEventListener(e, a)
+            )
+          );
+          a();
+        }
+        const c = document.querySelector("#elec-calc");
+        if (c) {
+          function r() {
+            const k = parseFloat(c.querySelector("#cKW").value || 0),
+              v = parseFloat(c.querySelector("#cV").value || 380),
+              p = parseFloat(c.querySelector("#cPF").value || 0.9),
+              ph = c.querySelector("#cPH").value;
+            let A = 0;
+            A =
+              ph === "3"
+                ? (k * 1000) / (Math.sqrt(3) * v * p)
+                : (k * 1000) / (v * p);
+            c.querySelector("#cA").textContent = Math.round(A * 10) / 10 + " A";
+          }
+          c.querySelectorAll("input,select").forEach((i) =>
+            i.addEventListener("input", r)
+          );
+          r();
+        }
+      });
+    </script>
+    <link rel="stylesheet" href="../assets/style.css">
+
+<!-- mobile override v5 -->
+<style>
+  html, body { max-width:100%; overflow-x:hidden; }
+  *, *::before, *::after { box-sizing:border-box; min-width:0; }
+  input, select, textarea, button { font-size:16px; }
+
+  /* index/list grid fallback */
+  @media (max-width: 980px){
+    .products, .cards, .card-grid, .grid-cards, .list-cards, .index-cards, .grid {
+      grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    }
+  }
+  @media (max-width: 560px){
+    .products, .cards, .card-grid, .grid-cards, .list-cards, .index-cards, .grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  /* detail spec grid force */
+  @media (max-width: 980px){
+    .kv-grid, .spec-grid, .specs, .grid.specs, .grid.kv, .grid.kv-grid, main .kv-grid, main .spec-grid, .model .grid.specs {
+      grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    }
+  }
+  @media (max-width: 560px){
+    .kv-grid, .spec-grid, .specs, .grid.specs, .grid.kv, .grid.kv-grid, main .kv-grid, main .spec-grid, .model .grid.specs {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  /* calculator grid */
+  @media (max-width: 640px){
+    #elec-calc .grid, #elec-calc .row, .calc-grid { grid-template-columns: 1fr !important; }
+  }
+
+  /* Q&A: Question(normal), Answer(bigger) */
+  /* Q (summary) */
+  details summary { font-size: clamp(15px, 3.8vw, 17px); line-height:1.5; }
+  /* A (answer body) */
+  details > div, details .answer, details .a, .qa-answer {
+    font-size: clamp(17px, 4.8vw, 19px);
+    line-height: 1.75;
+  }
+  details > div p{ margin: 8px 0; }
+</style>
+
+</head>
+  <body>
+    <div class="wrap">
+      <a class="btn" href="../index.html">← 목록으로</a>
+      <div class="hero">
+        <div class="spec">
+          <h2><b>FNEH-1500F</b></h2>
+          <div class="meta-row">
+            <span class="badge">화레이 · 전기 튜브히터</span
+            ><span class="badge">전기 튜브히터(캐비닛)</span>
+          </div>
+          <div class="kv">
+            <div class="item">
+              <div class="k">연료/전원</div>
+              <div class="v">전기 3상380V(보조 220V)</div>
+            </div>
+            <div class="item">
+              <div class="k">성능(표기)</div>
+              <div class="v">12,900~12,900 kcal/h</div>
+            </div>
+            <div class="item">
+              <div class="k">예상 출력</div>
+              <div class="v">15.0 kW</div>
+            </div>
+            <div class="item">
+              <div class="k">권장 면적(추정)</div>
+              <div class="v">5.6 평</div>
+            </div>
+            <div class="item">
+              <div class="k">판매가</div>
+              <div class="v">1,590,000원</div>
+            </div>
+            <div class="item">
+              <div class="k">택배비</div>
+              <div class="v">55,000원</div>
+            </div>
+            <div class="item">
+              <div class="k">크기(참고)</div>
+              <div class="v">제조사 표기 참조</div>
+            </div>
+          </div>
+
+          <div class="cta">
+            <a class="btn" href="tel:010-3935-0033">전화 상담</a>
+            <a class="btn secondary" href="../compare.html">다른 모델과 비교</a>
+            <a class="btn" href="../index.html">목록으로</a>
+          </div>
+          <div class="banner">필요 전기용량을 바로 계산해 보세요 ↓</div>
+          <div
+            id="elec-calc"
+            class="kv"
+            style="grid-template-columns: repeat(4, 1fr)"
+          >
+            <div class="item">
+              <div class="k">출력(kW)</div>
+              <div class="v">
+                <input id="cKW" type="number" step="0.1" value="10" />
+              </div>
+            </div>
+            <div class="item">
+              <div class="k">전압(V)</div>
+              <div class="v">
+                <input id="cV" type="number" step="10" value="380" />
+              </div>
+            </div>
+            <div class="item">
+              <div class="k">역률(PF)</div>
+              <div class="v">
+                <input id="cPF" type="number" step="0.05" value="0.9" />
+              </div>
+            </div>
+            <div class="item">
+              <div class="k">상수</div>
+              <div class="v">
+                <select id="cPH">
+                  <option value="3" selected>3상</option>
+                  <option value="1">단상</option>
+                </select>
+              </div>
+            </div>
+            <div class="item" style="grid-column: 1/-1">
+              <div class="k">필요 차단기 전류</div>
+              <div class="v" id="cA" style="font-size: 18px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="qa">
+        <h3>Q&A</h3>
+        <details>
+          <summary>권장 사용 면적은?</summary>
+          <div class="note">
+            평균적인 단열(사무실/상가 기준)에서 <b>약 5.6평</b> 수준입니다. 단,
+            단열 상태가 나쁘거나 천장고가 3m 이상인 창고/공장 환경, 출입이 잦은
+            매장은 더 큰 용량을 권장합니다.
+          </div>
+        </details>
+        <details>
+          <summary>소비전력/전류는?</summary>
+          <div class="note">
+            이 모델의 추정 출력은 약 <b>15.0 kW</b>입니다. 전류는 단상 220V 기준
+            약 <b>71.8A</b>, 3상 380V 기준 약 <b>25.3A</b>가 필요합니다. (역률
+            0.9 가정)
+          </div>
+        </details>
+        <details>
+          <summary>소음은 어느 정도인가요?</summary>
+          <div class="note">
+            팬이 있는 모델(열풍기/운풍형)은 대략 50~65 dB, 팬이 없는 원적외선
+            라디언트/튜브형은 40~55 dB 수준입니다. 정확한 수치는 설치 환경과
+            풍량 설정에 따라 달라집니다.
+          </div>
+        </details>
+        <details>
+          <summary>크기/무게는?</summary>
+          <div class="note">
+            크기: <b>제조사 표기 참조</b> (제조사 표기 기준/유사 모델 기준).
+            무게는 이동 바퀴 포함 25~45kg 구간이 일반적입니다.
+          </div>
+        </details>
+        <details>
+          <summary>안전장치는 무엇이 있나요?</summary>
+          <div class="note">
+            전도/과열 차단, 안전망, 버튼잠금(모델별), 일부 모델은 음성안내가
+            포함됩니다.
+          </div>
+        </details>
+        <details>
+          <summary>A/S와 설치는?</summary>
+          <div class="note">
+            택배 출고 후 설치가 필요한 경우(전기 공사/연통 등)는 현장 여건을
+            확인해야 합니다. 제조사/판매사 A/S 기준에 따르며,
+            소모품(연소관/필터)은 유상 교체입니다.
+          </div>
+        </details>
+        <div class="note">
+          ※ Q&A는 유사 모델 및 제조사 표준 스펙을 바탕으로 정리한 안내입니다.
+          실제 사양은 제품 라벨/설명서/제조사 공지를 우선합니다.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
