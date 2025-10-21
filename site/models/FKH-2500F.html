@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FKH-2500F | 상세 · FAQ</title>
-    <script>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>FKH-2500F | 상세 · FAQ</title>
+<script>
       function imgFallback(img, base) {
         var order = ["jpg", "png", "jpeg", "webp", "JPG", "PNG"];
         var tried = img.getAttribute("data-try") || "0";
@@ -17,8 +18,7 @@
         }
       }
     </script>
-
-    <style>
+<style>
       @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap");
       :root {
         --bg: #f6f8fb;
@@ -266,7 +266,7 @@
 
       /* 이미지 제거 대응: 썸네일/히어로가 빈칸일 수 있어 공백 유지 */
     </style>
-    <script>
+<script>
       window.addEventListener("DOMContentLoaded", () => {
         const t = document.querySelector("#compare-table");
         if (t) {
@@ -316,10 +316,8 @@
         }
       });
     </script>
-    <link rel="stylesheet" href="../../assets/style.css">
-
-
-<!-- mobile override v8 -->
+<link href="../../assets/style.css" rel="stylesheet"/>
+<!-- mobile override v9 -->
 <style>
   /* Safety */
   html, body { max-width:100%; overflow-x:hidden; }
@@ -343,174 +341,231 @@
     }
   }
 
-  /* Q&A Typography: A is (Q - 2px) */
-  :root{ --qa-q-size: clamp(20px, 1.7vw, 22px); }           /* desktop default */
-  @media (max-width: 1024px){ :root{ --qa-q-size: clamp(18px, 4.6vw, 20px); } }
-  @media (max-width: 480px){ :root{ --qa-q-size: clamp(16px, 4.8vw, 18px); } }
+  /* Q/A Typography: A SAME AS Q */
+  :root{ --qa-q-size: clamp(20px, 1.7vw, 22px); }           /* desktop */
+  @media (max-width: 1024px){ :root{ --qa-q-size: clamp(18px, 3.8vw, 20px); } }
+  @media (max-width: 480px){ :root{ --qa-q-size: clamp(18px, 4.8vw, 19px); } } /* 모바일도 살짝 상향 */
 
-  details summary { font-size: var(--qa-q-size); line-height: 1.55; }
+  details summary { font-size: var(--qa-q-size); line-height:1.55; }
   details > div, details .answer, details .a, .qa-answer {
-    font-size: calc(var(--qa-q-size) - 2px);
-    line-height: 1.8;
+    font-size: var(--qa-q-size);
+    line-height: 1.85;
   }
   details > div p{ margin: 10px 0; }
 </style>
+<style id="qna-upgrade">
+/* ===================== Q&A 개선 공통 스타일 ===================== */
+/* 질문:summary, 답변:.note — 질문보다 답변을 '살짝' 작게(기본 94%) */
+details.qna{
+  /* 필요시 여기 숫자만 조절하면 전체가 같이 반응합니다. */
+  --qa-q-font: clamp(18px, 1.15vw + 16px, 22px); /* 질문 폰트 (반응형) */
+  --qa-a-scale: .94;                              /* 답변=질문 대비 비율 */
+  --qa-ink: #0f172a;                              /* 질문 텍스트 색 */
+  --qa-muted: #334155;                            /* 답변 텍스트 색 */
+  --qa-accent: #0ea5e9;                           /* 포커스/강조 색 */
+}
 
-</head>
-  <body>
-    <div class="wrap">
-      <a class="btn" href="../index.html">← 목록으로</a>
-      <div class="hero">
-        <div class="spec">
-          <h2><b>FKH-2500F</b></h2>
-          <div class="meta-row">
-            <span class="badge">화레이 · 특대 운풍형</span
-            ><span class="badge">원적외선 오일히터(팬)</span>
-          </div>
-          <div class="kv">
-            <div class="item">
-              <div class="k">연료/전원</div>
-              <div class="v">등유(오일)</div>
-            </div>
-            <div class="item">
-              <div class="k">성능(표기)</div>
-              <div class="v">23,000~25,000 kcal/h</div>
-            </div>
-            <div class="item">
-              <div class="k">예상 출력</div>
-              <div class="v">27.91 kW</div>
-            </div>
-            <div class="item">
-              <div class="k">권장 면적(추정)</div>
-              <div class="v">10.4 평</div>
-            </div>
-            <div class="item">
-              <div class="k">판매가</div>
-              <div class="v">1,990,000원</div>
-            </div>
-            <div class="item">
-              <div class="k">택배비</div>
-              <div class="v">66,000원</div>
-            </div>
-            <div class="item">
-              <div class="k">크기(참고)</div>
-              <div class="v">제조사 표기 참조</div>
-            </div>
-          </div>
+/* 각 Q&A 아이템 박스 */
+details.qna{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:12px 14px;
+  margin:6px 0;
+}
 
-          <div class="cta">
-            <a class="btn" href="tel:010-3935-0033">전화 상담</a>
-            <a class="btn secondary" href="../compare.html">다른 모델과 비교</a>
-            <a class="btn" href="../index.html">목록으로</a>
-          </div>
-          <div class="banner">필요 전기용량을 바로 계산해 보세요 ↓</div>
-          <div
-            id="elec-calc"
-            class="kv"
-            style="grid-template-columns: repeat(4, 1fr)"
-          >
-            <div class="item">
-              <div class="k">출력(kW)</div>
-              <div class="v">
-                <input id="cKW" type="number" step="0.1" value="10" />
-              </div>
-            </div>
-            <div class="item">
-              <div class="k">전압(V)</div>
-              <div class="v">
-                <input id="cV" type="number" step="10" value="380" />
-              </div>
-            </div>
-            <div class="item">
-              <div class="k">역률(PF)</div>
-              <div class="v">
-                <input id="cPF" type="number" step="0.05" value="0.9" />
-              </div>
-            </div>
-            <div class="item">
-              <div class="k">상수</div>
-              <div class="v">
-                <select id="cPH">
-                  <option value="3" selected>3상</option>
-                  <option value="1">단상</option>
-                </select>
-              </div>
-            </div>
-            <div class="item" style="grid-column: 1/-1">
-              <div class="k">필요 차단기 전류</div>
-              <div class="v" id="cA" style="font-size: 18px"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+/* 질문(summary) 영역: 전부 클릭 가능하게(터치 44px 보장) */
+details.qna > summary{
+  display:flex; align-items:center; gap:10px;
+  min-height:44px;
+  list-style:none; cursor:pointer; user-select:none;
+  font-size:var(--qa-q-font); font-weight:800; line-height:1.35;
+  color:var(--qa-ink);
+}
+details.qna > summary::-webkit-details-marker{ display:none; }
 
-      <div class="qa">
-        <h3>Q&A</h3>
-        <details>
-          <summary>권장 사용 면적은?</summary>
-          <div class="note">
+/* 답변: 질문보다 '약간만' 작게, 가독성 라인 높이 */
+details.qna > .note{
+  font-size:calc(var(--qa-q-font) * var(--qa-a-scale));
+  line-height:1.7; color:var(--qa-muted);
+  margin-top:8px;
+}
+
+/* '>' 아이콘(클릭 유도): summary 앞에 이미지 삽입 + 열림 시 회전  */
+details.qna > summary::before{
+  content:"";
+  flex:none; width:1.2em; height:1.2em;
+  background:center / contain no-repeat;
+  /* 인라인 SVG: 자산 추가 없이 사용 가능 (CSP에 data: 허용 필요) */
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5l8 7-8 7" fill="none" stroke="%236b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+  transition:transform .18s ease, filter .18s ease;
+  transform:translateY(1px);
+}
+details.qna[open] > summary::before{ transform:rotate(90deg) translateY(1px); }
+
+/* 접근성: 키보드 포커스 표시 */
+details.qna > summary:focus-visible{
+  outline:2px solid var(--qa-accent);
+  outline-offset:4px;
+}
+
+/* 다크 모드 보정(선택 사항) */
+@media (prefers-color-scheme: dark){
+  details.qna{ border-color:#2b2f36; background:#0b0d10; }
+  details.qna > summary{ color:#e5e7eb; }
+  details.qna > .note{ color:#cbd5e1; }
+  details.qna > summary::before{
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5l8 7-8 7" fill="none" stroke="%23a3a3a3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+  }
+}
+</style></head>
+<body>
+<div class="wrap">
+<a class="btn" href="../index.html">← 목록으로</a>
+<div class="hero">
+<div class="spec">
+<h2><b>FKH-2500F</b></h2>
+<div class="meta-row">
+<span class="badge">화레이 · 특대 운풍형</span><span class="badge">원적외선 오일히터(팬)</span>
+</div>
+<div class="kv">
+<div class="item">
+<div class="k">연료/전원</div>
+<div class="v">등유(오일)</div>
+</div>
+<div class="item">
+<div class="k">성능(표기)</div>
+<div class="v">23,000~25,000 kcal/h</div>
+</div>
+<div class="item">
+<div class="k">예상 출력</div>
+<div class="v">27.91 kW</div>
+</div>
+<div class="item">
+<div class="k">권장 면적(추정)</div>
+<div class="v">10.4 평</div>
+</div>
+<div class="item">
+<div class="k">판매가</div>
+<div class="v">1,990,000원</div>
+</div>
+<div class="item">
+<div class="k">택배비</div>
+<div class="v">66,000원</div>
+</div>
+<div class="item">
+<div class="k">크기(참고)</div>
+<div class="v">제조사 표기 참조</div>
+</div>
+</div>
+<div class="cta">
+<a class="btn" href="tel:010-3935-0033">전화 상담</a>
+<a class="btn secondary" href="../compare.html">다른 모델과 비교</a>
+<a class="btn" href="../index.html">목록으로</a>
+</div>
+<div class="banner">필요 전기용량을 바로 계산해 보세요 ↓</div>
+<div class="kv" id="elec-calc" style="grid-template-columns: repeat(4, 1fr)">
+<div class="item">
+<div class="k">출력(kW)</div>
+<div class="v">
+<input id="cKW" step="0.1" type="number" value="10"/>
+</div>
+</div>
+<div class="item">
+<div class="k">전압(V)</div>
+<div class="v">
+<input id="cV" step="10" type="number" value="380"/>
+</div>
+</div>
+<div class="item">
+<div class="k">역률(PF)</div>
+<div class="v">
+<input id="cPF" step="0.05" type="number" value="0.9"/>
+</div>
+</div>
+<div class="item">
+<div class="k">상수</div>
+<div class="v">
+<select id="cPH">
+<option selected="" value="3">3상</option>
+<option value="1">단상</option>
+</select>
+</div>
+</div>
+<div class="item" style="grid-column: 1/-1">
+<div class="k">필요 차단기 전류</div>
+<div class="v" id="cA" style="font-size: 18px"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="qa">
+<h3>Q&amp;A</h3>
+<details class="qna">
+<summary>권장 사용 면적은?</summary>
+<div class="note">
             평균적인 단열(사무실/상가 기준)에서 <b>약 10.4평</b> 수준입니다. 단,
             단열 상태가 나쁘거나 천장고가 3m 이상인 창고/공장 환경, 출입이 잦은
             매장은 더 큰 용량을 권장합니다.
           </div>
-        </details>
-        <details>
-          <summary>소비전력/전류는?</summary>
-          <div class="note">
+</details>
+<details class="qna">
+<summary>소비전력/전류는?</summary>
+<div class="note">
             이 모델의 추정 출력은 약 <b>27.91 kW</b>입니다. 전류는 단상 220V
             기준 약 <b>133.5A</b>, 3상 380V 기준 약 <b>47.1A</b>가 필요합니다.
             (역률 0.9 가정)
           </div>
-        </details>
-        <details>
-          <summary>소음은 어느 정도인가요?</summary>
-          <div class="note">
+</details>
+<details class="qna">
+<summary>소음은 어느 정도인가요?</summary>
+<div class="note">
             팬이 있는 모델(열풍기/운풍형)은 대략 50~65 dB, 팬이 없는 원적외선
             라디언트/튜브형은 40~55 dB 수준입니다. 정확한 수치는 설치 환경과
             풍량 설정에 따라 달라집니다.
           </div>
-        </details>
-        <details>
-          <summary>크기/무게는?</summary>
-          <div class="note">
+</details>
+<details class="qna">
+<summary>크기/무게는?</summary>
+<div class="note">
             크기: <b>제조사 표기 참조</b> (제조사 표기 기준/유사 모델 기준).
             무게는 이동 바퀴 포함 25~45kg 구간이 일반적입니다.
           </div>
-        </details>
-        <details>
-          <summary>연료와 소비량은?</summary>
-          <div class="note">
+</details>
+<details class="qna">
+<summary>연료와 소비량은?</summary>
+<div class="note">
             등유(기름)를 사용합니다. 미니/소형 기준 시간당 약 0.8~1.0 L, 중형은
             1.1~1.5 L, 대형은 1.8~2.5 L 수준(일반적인 스펙 범위)입니다.
           </div>
-        </details>
-        <details>
-          <summary>냄새/환기는?</summary>
-          <div class="note">
+</details>
+<details class="qna">
+<summary>냄새/환기는?</summary>
+<div class="note">
             연소 제품 특성상 초기 점화/소화 시 약간의 냄새가 있을 수 있습니다.
             실내 사용 시 <b>지속 환기</b>를 권장합니다.
           </div>
-        </details>
-        <details>
-          <summary>안전장치는 무엇이 있나요?</summary>
-          <div class="note">
+</details>
+<details class="qna">
+<summary>안전장치는 무엇이 있나요?</summary>
+<div class="note">
             전도/과열 차단, 안전망, 버튼잠금(모델별), 일부 모델은 음성안내가
             포함됩니다.
           </div>
-        </details>
-        <details>
-          <summary>A/S와 설치는?</summary>
-          <div class="note">
+</details>
+<details class="qna">
+<summary>A/S와 설치는?</summary>
+<div class="note">
             택배 출고 후 설치가 필요한 경우(전기 공사/연통 등)는 현장 여건을
             확인해야 합니다. 제조사/판매사 A/S 기준에 따르며,
             소모품(연소관/필터)은 유상 교체입니다.
           </div>
-        </details>
-        <div class="note">
-          ※ Q&A는 유사 모델 및 제조사 표준 스펙을 바탕으로 정리한 안내입니다.
+</details>
+<div class="note">
+          ※ Q&amp;A는 유사 모델 및 제조사 표준 스펙을 바탕으로 정리한 안내입니다.
           실제 사양은 제품 라벨/설명서/제조사 공지를 우선합니다.
         </div>
-      </div>
-    </div>
-  </body>
+</div>
+</div>
+</body>
 </html>

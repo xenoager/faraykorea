@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>화레이 제품별 Q&A</title>
-    <script>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>화레이 제품별 Q&amp;A</title>
+<script>
       function imgFallback(img, base) {
         var order = ["jpg", "png", "jpeg", "webp", "JPG", "PNG"];
         var tried = img.getAttribute("data-try") || "0";
@@ -17,8 +18,7 @@
         }
       }
     </script>
-
-    <style>
+<style>
       @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap");
       :root {
         --bg: #f6f8fb;
@@ -266,7 +266,7 @@
 
       /* 이미지 제거 대응: 썸네일/히어로가 빈칸일 수 있어 공백 유지 */
     </style>
-    <script>
+<script>
       window.addEventListener("DOMContentLoaded", () => {
         const t = document.querySelector("#compare-table");
         if (t) {
@@ -316,10 +316,8 @@
         }
       });
     </script>
-    <link rel="stylesheet" href="../assets/style.css" />
-  
-
-<!-- mobile override v8 -->
+<link href="../assets/style.css" rel="stylesheet"/>
+<!-- mobile override v9 -->
 <style>
   /* Safety */
   html, body { max-width:100%; overflow-x:hidden; }
@@ -343,609 +341,460 @@
     }
   }
 
-  /* Q&A Typography: A is (Q - 2px) */
-  :root{ --qa-q-size: clamp(20px, 1.7vw, 22px); }           /* desktop default */
-  @media (max-width: 1024px){ :root{ --qa-q-size: clamp(18px, 4.6vw, 20px); } }
-  @media (max-width: 480px){ :root{ --qa-q-size: clamp(16px, 4.8vw, 18px); } }
+  /* Q/A Typography: A SAME AS Q */
+  :root{ --qa-q-size: clamp(20px, 1.7vw, 22px); }           /* desktop */
+  @media (max-width: 1024px){ :root{ --qa-q-size: clamp(18px, 3.8vw, 20px); } }
+  @media (max-width: 480px){ :root{ --qa-q-size: clamp(18px, 4.8vw, 19px); } } /* 모바일도 살짝 상향 */
 
-  details summary { font-size: var(--qa-q-size); line-height: 1.55; }
+  details summary { font-size: var(--qa-q-size); line-height:1.55; }
   details > div, details .answer, details .a, .qa-answer {
-    font-size: calc(var(--qa-q-size) - 2px);
-    line-height: 1.8;
+    font-size: var(--qa-q-size);
+    line-height: 1.85;
   }
   details > div p{ margin: 10px 0; }
 </style>
+<style id="qna-upgrade">
+/* ===================== Q&A 개선 공통 스타일 ===================== */
+/* 질문:summary, 답변:.note — 질문보다 답변을 '살짝' 작게(기본 94%) */
+details.qna{
+  /* 필요시 여기 숫자만 조절하면 전체가 같이 반응합니다. */
+  --qa-q-font: clamp(18px, 1.15vw + 16px, 22px); /* 질문 폰트 (반응형) */
+  --qa-a-scale: .94;                              /* 답변=질문 대비 비율 */
+  --qa-ink: #0f172a;                              /* 질문 텍스트 색 */
+  --qa-muted: #334155;                            /* 답변 텍스트 색 */
+  --qa-accent: #0ea5e9;                           /* 포커스/강조 색 */
+}
 
-</head>
-  <body>
-    <div class="wrap">
-      <h1>화레이 제품별 Q&A</h1>
-      <div class="notice">
-        모델을 클릭하면 상세/FAQ 페이지로 이동합니다.<br />
-      </div>
+/* 각 Q&A 아이템 박스 */
+details.qna{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:12px 14px;
+  margin:6px 0;
+}
 
-      <div class="searchbar">
-        <input placeholder="모델명/브랜드/유형으로 검색" />
-        <a class="btn" href="./compare.html">비교 · 필터 보기</a>
-      </div>
+/* 질문(summary) 영역: 전부 클릭 가능하게(터치 44px 보장) */
+details.qna > summary{
+  display:flex; align-items:center; gap:10px;
+  min-height:44px;
+  list-style:none; cursor:pointer; user-select:none;
+  font-size:var(--qa-q-font); font-weight:800; line-height:1.35;
+  color:var(--qa-ink);
+}
+details.qna > summary::-webkit-details-marker{ display:none; }
 
-      <div class="toolbar">
-        <span class="chip">총 30종</span>
-        <span class="chip">업데이트: 2025-10-20</span>
-      </div>
+/* 답변: 질문보다 '약간만' 작게, 가독성 라인 높이 */
+details.qna > .note{
+  font-size:calc(var(--qa-q-font) * var(--qa-a-scale));
+  line-height:1.7; color:var(--qa-muted);
+  margin-top:8px;
+}
 
-      <div class="grid" id="grid">
-        <a
-          class="card model"
-          data-model="AT-9000B"
-          data-img="#"
-          href="./models/AT-9000B.html"
-        >
-          <div class="meta">
-            <div class="title">AT-9000B</div>
-            <div class="desc">
+/* '>' 아이콘(클릭 유도): summary 앞에 이미지 삽입 + 열림 시 회전  */
+details.qna > summary::before{
+  content:"";
+  flex:none; width:1.2em; height:1.2em;
+  background:center / contain no-repeat;
+  /* 인라인 SVG: 자산 추가 없이 사용 가능 (CSP에 data: 허용 필요) */
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5l8 7-8 7" fill="none" stroke="%236b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+  transition:transform .18s ease, filter .18s ease;
+  transform:translateY(1px);
+}
+details.qna[open] > summary::before{ transform:rotate(90deg) translateY(1px); }
+
+/* 접근성: 키보드 포커스 표시 */
+details.qna > summary:focus-visible{
+  outline:2px solid var(--qa-accent);
+  outline-offset:4px;
+}
+
+/* 다크 모드 보정(선택 사항) */
+@media (prefers-color-scheme: dark){
+  details.qna{ border-color:#2b2f36; background:#0b0d10; }
+  details.qna > summary{ color:#e5e7eb; }
+  details.qna > .note{ color:#cbd5e1; }
+  details.qna > summary::before{
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5l8 7-8 7" fill="none" stroke="%23a3a3a3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+  }
+}
+</style></head>
+<body>
+<div class="wrap">
+<h1>화레이 제품별 Q&amp;A</h1>
+<div class="notice">
+        모델을 클릭하면 상세/FAQ 페이지로 이동합니다.<br/>
+</div>
+<div class="searchbar">
+<input placeholder="모델명/브랜드/유형으로 검색"/>
+<a class="btn" href="./compare.html">비교 · 필터 보기</a>
+</div>
+<div class="toolbar">
+<span class="chip">총 30종</span>
+<span class="chip">업데이트: 2025-10-20</span>
+</div>
+<div class="grid" id="grid">
+<a class="card model" data-img="#" data-model="AT-9000B" href="./models/AT-9000B.html">
+<div class="meta">
+<div class="title">AT-9000B</div>
+<div class="desc">
               아쎈 라운드 튜브히터 · 원적외선 튜브히터 · 9,000~10,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">석유히터</span>
-            </div>
-            <div class="price">798,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="AT-11000B"
-          data-img="#"
-          href="./models/AT-11000B.html"
-        >
-          <div class="meta">
-            <div class="title">AT-11000B</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">석유히터</span>
+</div>
+<div class="price">798,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="AT-11000B" href="./models/AT-11000B.html">
+<div class="meta">
+<div class="title">AT-11000B</div>
+<div class="desc">
               아쎈 라운드 튜브히터 · 원적외선 튜브히터 · 10,000~11,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">석유히터</span>
-            </div>
-            <div class="price">880,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="AT-16000B"
-          data-img="#"
-          href="./models/AT-16000B.html"
-        >
-          <div class="meta">
-            <div class="title">AT-16000B</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">석유히터</span>
+</div>
+<div class="price">880,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="AT-16000B" href="./models/AT-16000B.html">
+<div class="meta">
+<div class="title">AT-16000B</div>
+<div class="desc">
               아쎈 라운드 튜브히터 · 원적외선 튜브히터 · 13,000~14,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">석유히터</span>
-            </div>
-            <div class="price">990,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="AT-21000B"
-          data-img="#"
-          href="./models/AT-21000B.html"
-        >
-          <div class="meta">
-            <div class="title">AT-21000B</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">석유히터</span>
+</div>
+<div class="price">990,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="AT-21000B" href="./models/AT-21000B.html">
+<div class="meta">
+<div class="title">AT-21000B</div>
+<div class="desc">
               아쎈 라운드 튜브히터 · 원적외선 튜브히터 · 21,000~23,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">석유히터</span>
-            </div>
-            <div class="price">1,100,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="AT-23000B"
-          data-img="#"
-          href="./models/AT-23000B.html"
-        >
-          <div class="meta">
-            <div class="title">AT-23000B</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">석유히터</span>
+</div>
+<div class="price">1,100,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="AT-23000B" href="./models/AT-23000B.html">
+<div class="meta">
+<div class="title">AT-23000B</div>
+<div class="desc">
               아쎈 라운드 튜브히터 · 원적외선 튜브히터 · 21,000~23,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">석유히터</span>
-            </div>
-            <div class="price">1,390,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FSH-0900R"
-          data-img="#"
-          href="./models/FSH-0900R.html"
-        >
-          <div class="meta">
-            <div class="title">FSH-0900R</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">석유히터</span>
+</div>
+<div class="price">1,390,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FSH-0900R" href="./models/FSH-0900R.html">
+<div class="meta">
+<div class="title">FSH-0900R</div>
+<div class="desc">
               화레이 칼라판 미니 · 원적외선 오일히터 · 9,000~10,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">석유히터</span>
-            </div>
-            <div class="price">798,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FSH-2310"
-          data-img="#"
-          href="./models/FSH-2310.html"
-        >
-          <div class="meta">
-            <div class="title">FSH-2310</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">석유히터</span>
+</div>
+<div class="price">798,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FSH-2310" href="./models/FSH-2310.html">
+<div class="meta">
+<div class="title">FSH-2310</div>
+<div class="desc">
               화레이 칼라판 소형 · 원적외선 오일히터 · 10,000~11,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">석유히터</span>
-            </div>
-            <div class="price">880,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FSH-2315"
-          data-img="#"
-          href="./models/FSH-2315.html"
-        >
-          <div class="meta">
-            <div class="title">FSH-2315</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">석유히터</span>
+</div>
+<div class="price">880,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FSH-2315" href="./models/FSH-2315.html">
+<div class="meta">
+<div class="title">FSH-2315</div>
+<div class="desc">
               화레이 칼라판 중형 · 원적외선 오일히터 · 13,000~16,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">석유히터</span>
-            </div>
-            <div class="price">990,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FSH-2320"
-          data-img="#"
-          href="./models/FSH-2320.html"
-        >
-          <div class="meta">
-            <div class="title">FSH-2320</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">석유히터</span>
+</div>
+<div class="price">990,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FSH-2320" href="./models/FSH-2320.html">
+<div class="meta">
+<div class="title">FSH-2320</div>
+<div class="desc">
               화레이 칼라판 대형 · 원적외선 오일히터 · 18,000~21,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">석유히터</span>
-            </div>
-            <div class="price">1,100,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FKH-2020F"
-          data-img="#"
-          href="./models/FKH-2020F.html"
-        >
-          <div class="meta">
-            <div class="title">FKH-2020F</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">석유히터</span>
+</div>
+<div class="price">1,100,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FKH-2020F" href="./models/FKH-2020F.html">
+<div class="meta">
+<div class="title">FKH-2020F</div>
+<div class="desc">
               화레이 대형 운풍형 · 원적외선 오일히터(팬) · 19,000~22,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">석유히터</span>
-            </div>
-            <div class="price">1,690,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FKH-2500F"
-          data-img="#"
-          href="./models/FKH-2500F.html"
-        >
-          <div class="meta">
-            <div class="title">FKH-2500F</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">석유히터</span>
+</div>
+<div class="price">1,690,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FKH-2500F" href="./models/FKH-2500F.html">
+<div class="meta">
+<div class="title">FKH-2500F</div>
+<div class="desc">
               화레이 특대 운풍형 · 원적외선 오일히터(팬) · 23,000~25,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">석유히터</span>
-            </div>
-            <div class="price">1,990,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FNEH-1100F"
-          data-img="#"
-          href="./models/FNEH-1100F.html"
-        >
-          <div class="meta">
-            <div class="title">FNEH-1100F</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">석유히터</span>
+</div>
+<div class="price">1,990,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FNEH-1100F" href="./models/FNEH-1100F.html">
+<div class="meta">
+<div class="title">FNEH-1100F</div>
+<div class="desc">
               화레이 전기 튜브히터 · 전기 튜브히터(캐비닛) · 9,030~9,030 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">전기 3상380V(보조 220V)</span
-              ><span class="badge">전기히터</span>
-            </div>
-            <div class="price">1,390,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FNEH-1200F"
-          data-img="#"
-          href="./models/FNEH-1200F.html"
-        >
-          <div class="meta">
-            <div class="title">FNEH-1200F</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">전기 3상380V(보조 220V)</span><span class="badge">전기히터</span>
+</div>
+<div class="price">1,390,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FNEH-1200F" href="./models/FNEH-1200F.html">
+<div class="meta">
+<div class="title">FNEH-1200F</div>
+<div class="desc">
               화레이 전기 튜브히터 · 전기 튜브히터(캐비닛) · 10,320~10,320
               kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">전기 3상380V(보조 220V)</span
-              ><span class="badge">전기히터</span>
-            </div>
-            <div class="price">1,490,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FNEH-1500F"
-          data-img="#"
-          href="./models/FNEH-1500F.html"
-        >
-          <div class="meta">
-            <div class="title">FNEH-1500F</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">전기 3상380V(보조 220V)</span><span class="badge">전기히터</span>
+</div>
+<div class="price">1,490,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FNEH-1500F" href="./models/FNEH-1500F.html">
+<div class="meta">
+<div class="title">FNEH-1500F</div>
+<div class="desc">
               화레이 전기 튜브히터 · 전기 튜브히터(캐비닛) · 12,900~12,900
               kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">전기 3상380V(보조 220V)</span
-              ><span class="badge">전기히터</span>
-            </div>
-            <div class="price">1,590,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FNEH-110"
-          data-img="#"
-          href="./models/FNEH-110.html"
-        >
-          <div class="meta">
-            <div class="title">FNEH-110</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">전기 3상380V(보조 220V)</span><span class="badge">전기히터</span>
+</div>
+<div class="price">1,590,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FNEH-110" href="./models/FNEH-110.html">
+<div class="meta">
+<div class="title">FNEH-110</div>
+<div class="desc">
               화레이 전기 열풍기 · 전기 열풍기(팬) 10kW · 8,510~10,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">전기 3상380V</span
-              ><span class="badge">전기열풍기</span>
-            </div>
-            <div class="price">1,100,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FNEH-220"
-          data-img="#"
-          href="./models/FNEH-220.html"
-        >
-          <div class="meta">
-            <div class="title">FNEH-220</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">전기 3상380V</span><span class="badge">전기열풍기</span>
+</div>
+<div class="price">1,100,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FNEH-220" href="./models/FNEH-220.html">
+<div class="meta">
+<div class="title">FNEH-220</div>
+<div class="desc">
               화레이 전기 열풍기 · 전기 열풍기(팬) 20kW · 17,020~20,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">전기 3상380V</span
-              ><span class="badge">전기열풍기</span>
-            </div>
-            <div class="price">1,290,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FNEH-330"
-          data-img="#"
-          href="./models/FNEH-330.html"
-        >
-          <div class="meta">
-            <div class="title">FNEH-330</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">전기 3상380V</span><span class="badge">전기열풍기</span>
+</div>
+<div class="price">1,290,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FNEH-330" href="./models/FNEH-330.html">
+<div class="meta">
+<div class="title">FNEH-330</div>
+<div class="desc">
               화레이 전기 열풍기 · 전기 열풍기(팬) 30kW · 25,530~30,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">전기 3상380V</span
-              ><span class="badge">전기열풍기</span>
-            </div>
-            <div class="price">1,390,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FK-230"
-          data-img="#"
-          href="./models/FK-230.html"
-        >
-          <div class="meta">
-            <div class="title">FK-230</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">전기 3상380V</span><span class="badge">전기열풍기</span>
+</div>
+<div class="price">1,390,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FK-230" href="./models/FK-230.html">
+<div class="meta">
+<div class="title">FK-230</div>
+<div class="desc">
               화레이 석유 열풍기 · 등유 열풍기(대포형) · 20,000~22,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">등유열풍기</span>
-            </div>
-            <div class="price">340,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FK-330"
-          data-img="#"
-          href="./models/FK-330.html"
-        >
-          <div class="meta">
-            <div class="title">FK-330</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">등유열풍기</span>
+</div>
+<div class="price">340,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FK-330" href="./models/FK-330.html">
+<div class="meta">
+<div class="title">FK-330</div>
+<div class="desc">
               화레이 석유 열풍기 · 등유 열풍기(대포형) · 30,000~33,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">등유열풍기</span>
-            </div>
-            <div class="price">399,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FK-550"
-          data-img="#"
-          href="./models/FK-550.html"
-        >
-          <div class="meta">
-            <div class="title">FK-550</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">등유열풍기</span>
+</div>
+<div class="price">399,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FK-550" href="./models/FK-550.html">
+<div class="meta">
+<div class="title">FK-550</div>
+<div class="desc">
               화레이 석유 열풍기 · 등유 열풍기(대포형) · 50,000~55,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">등유열풍기</span>
-            </div>
-            <div class="price">550,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FK-1100"
-          data-img="#"
-          href="./models/FK-1100.html"
-        >
-          <div class="meta">
-            <div class="title">FK-1100</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">등유열풍기</span>
+</div>
+<div class="price">550,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FK-1100" href="./models/FK-1100.html">
+<div class="meta">
+<div class="title">FK-1100</div>
+<div class="desc">
               화레이 석유 열풍기 · 등유 열풍기(대포형) · 100,000~110,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">등유(오일)</span
-              ><span class="badge">등유열풍기</span>
-            </div>
-            <div class="price">1,045,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FNEH-H4300"
-          data-img="#"
-          href="./models/FNEH-H4300.html"
-        >
-          <div class="meta">
-            <div class="title">FNEH-H4300</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">등유(오일)</span><span class="badge">등유열풍기</span>
+</div>
+<div class="price">1,045,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FNEH-H4300" href="./models/FNEH-H4300.html">
+<div class="meta">
+<div class="title">FNEH-H4300</div>
+<div class="desc">
               화레이 하이라이트 4구 · 하이라이트 석영 히터 · 3,000~3,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">전기 220V</span
-              ><span class="badge">하이라이트</span>
-            </div>
-            <div class="price">368,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FNEH-3000P"
-          data-img="#"
-          href="./models/FNEH-3000P.html"
-        >
-          <div class="meta">
-            <div class="title">FNEH-3000P</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">전기 220V</span><span class="badge">하이라이트</span>
+</div>
+<div class="price">368,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FNEH-3000P" href="./models/FNEH-3000P.html">
+<div class="meta">
+<div class="title">FNEH-3000P</div>
+<div class="desc">
               화레이 PTC 온풍기 · PTC 전기 온풍기 · 2,600~3,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">전기 220V</span
-              ><span class="badge">전기히터</span>
-            </div>
-            <div class="price">138,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FNEH-3800T"
-          data-img="#"
-          href="./models/FNEH-3800T.html"
-        >
-          <div class="meta">
-            <div class="title">FNEH-3800T</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">전기 220V</span><span class="badge">전기히터</span>
+</div>
+<div class="price">138,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FNEH-3800T" href="./models/FNEH-3800T.html">
+<div class="meta">
+<div class="title">FNEH-3800T</div>
+<div class="desc">
               화레이 파티오 히터 · 카본 파티오 히터(봉형) · 3,000~3,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">전기 220V</span
-              ><span class="badge">전기 파티오</span>
-            </div>
-            <div class="price">295,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FNEH-3900R"
-          data-img="#"
-          href="./models/FNEH-3900R.html"
-        >
-          <div class="meta">
-            <div class="title">FNEH-3900R</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">전기 220V</span><span class="badge">전기 파티오</span>
+</div>
+<div class="price">295,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FNEH-3900R" href="./models/FNEH-3900R.html">
+<div class="meta">
+<div class="title">FNEH-3900R</div>
+<div class="desc">
               화레이 파티오 히터 · 카본 파티오 히터(원형) · 3,000~3,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">전기 220V</span
-              ><span class="badge">전기 파티오</span>
-            </div>
-            <div class="price">295,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="FNEH-4900F"
-          data-img="#"
-          href="./models/FNEH-4900F.html"
-        >
-          <div class="meta">
-            <div class="title">FNEH-4900F</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">전기 220V</span><span class="badge">전기 파티오</span>
+</div>
+<div class="price">295,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="FNEH-4900F" href="./models/FNEH-4900F.html">
+<div class="meta">
+<div class="title">FNEH-4900F</div>
+<div class="desc">
               화레이 소형 캐비닛 · 전기 히터(캐비닛) · 3,000~3,000 kcal/h
             </div>
-            <div class="meta-row">
-              <span class="badge">전기 220V</span
-              ><span class="badge">전기히터</span>
-            </div>
-            <div class="price">295,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="SPGR-119"
-          data-img="#"
-          href="./models/SPGR-119.html"
-        >
-          <div class="meta">
-            <div class="title">SPGR-119</div>
-            <div class="desc">숯대감 숯 소화기 · 전기 연결 숯 소화기 ·</div>
-            <div class="meta-row">
-              <span class="badge">전기/수도</span
-              ><span class="badge">숯소화기</span>
-            </div>
-            <div class="price">935,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="SPGR-120"
-          data-img="#"
-          href="./models/SPGR-120.html"
-        >
-          <div class="meta">
-            <div class="title">SPGR-120</div>
-            <div class="desc">숯대감 숯 착화기 · 자동 숯 착화기 ·</div>
-            <div class="meta-row">
-              <span class="badge">가스(LPG/LNG 겸용)</span
-              ><span class="badge">숯착화기</span>
-            </div>
-            <div class="price">1,750,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="SPGR-130"
-          data-img="#"
-          href="./models/SPGR-130.html"
-        >
-          <div class="meta">
-            <div class="title">SPGR-130</div>
-            <div class="desc">
+<div class="meta-row">
+<span class="badge">전기 220V</span><span class="badge">전기히터</span>
+</div>
+<div class="price">295,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="SPGR-119" href="./models/SPGR-119.html">
+<div class="meta">
+<div class="title">SPGR-119</div>
+<div class="desc">숯대감 숯 소화기 · 전기 연결 숯 소화기 ·</div>
+<div class="meta-row">
+<span class="badge">전기/수도</span><span class="badge">숯소화기</span>
+</div>
+<div class="price">935,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="SPGR-120" href="./models/SPGR-120.html">
+<div class="meta">
+<div class="title">SPGR-120</div>
+<div class="desc">숯대감 숯 착화기 · 자동 숯 착화기 ·</div>
+<div class="meta-row">
+<span class="badge">가스(LPG/LNG 겸용)</span><span class="badge">숯착화기</span>
+</div>
+<div class="price">1,750,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="SPGR-130" href="./models/SPGR-130.html">
+<div class="meta">
+<div class="title">SPGR-130</div>
+<div class="desc">
               숯대감 숯 착화기 · 자동 숯 착화기(LPG 전용) ·
             </div>
-            <div class="meta-row">
-              <span class="badge">가스(LPG)</span
-              ><span class="badge">숯착화기</span>
-            </div>
-            <div class="price">1,350,000원</div>
-          </div>
-        </a>
-
-        <a
-          class="card model"
-          data-model="SPGR-149"
-          data-img="#"
-          href="./models/SPGR-149.html"
-        >
-          <div class="meta">
-            <div class="title">SPGR-149</div>
-            <div class="desc">숯대감 숯 소화기 · 숯 소화기 수도연결형 ·</div>
-            <div class="meta-row">
-              <span class="badge">전기/수도</span
-              ><span class="badge">숯소화기</span>
-            </div>
-            <div class="price">1,045,000원</div>
-          </div>
-        </a>
-      </div>
-
-      <div class="footer">
+<div class="meta-row">
+<span class="badge">가스(LPG)</span><span class="badge">숯착화기</span>
+</div>
+<div class="price">1,350,000원</div>
+</div>
+</a>
+<a class="card model" data-img="#" data-model="SPGR-149" href="./models/SPGR-149.html">
+<div class="meta">
+<div class="title">SPGR-149</div>
+<div class="desc">숯대감 숯 소화기 · 숯 소화기 수도연결형 ·</div>
+<div class="meta-row">
+<span class="badge">전기/수도</span><span class="badge">숯소화기</span>
+</div>
+<div class="price">1,045,000원</div>
+</div>
+</a>
+</div>
+<div class="footer">
         화레이 코리아 전문몰/ 모두의 가전몰 / 010-3935-0033 / xenoager@naver.com
         / 김태선
       </div>
-    </div>
-  </body>
+</div>
+</body>
 </html>
