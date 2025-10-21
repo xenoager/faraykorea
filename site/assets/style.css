@@ -1,0 +1,55 @@
+/* base for mobile */
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Malgun Gothic,sans-serif;}
+
+/* === Mobile tuning v1 (2025-10-21) ===================================== */
+:root{
+  --fs-14: clamp(13px, 3.5vw, 14px);
+  --fs-16: clamp(14px, 4vw, 16px);
+  --fs-18: clamp(16px, 4.6vw, 18px);
+  --fs-20: clamp(18px, 5.2vw, 20px);
+}
+html{ -webkit-text-size-adjust: 100%; }
+body{ font-size: var(--fs-16); }
+
+/* container padding */
+.container, .wrap, main{ padding-left: 16px; padding-right: 16px; }
+
+/* card grids */
+.cards, .card-grid, .grid-cards{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+@media (max-width: 480px){ .cards, .card-grid, .grid-cards{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 380px){ .cards, .card-grid, .grid-cards{ grid-template-columns: 1fr; } }
+
+.card{ border-radius: 16px; padding: 14px; }
+.card h3, .card .title, .model-title{ font-size: var(--fs-20); line-height:1.25 }
+
+/* badges */
+.badge, .chip{ padding:6px 10px; font-size: var(--fs-14); line-height:1; }
+
+/* spec grid */
+.kv-grid{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px; }
+@media (max-width:560px){ .kv-grid{ grid-template-columns:1fr; } }
+.kv-grid .item{ padding:12px; border-radius:12px; }
+.kv-grid .k{ font-size: var(--fs-14); opacity:.75; margin-bottom:4px }
+.kv-grid .v{ font-size: var(--fs-18); font-weight:700 }
+
+/* buttons & summary */
+button, .btn, summary{ min-height:44px; padding:10px 14px; -webkit-tap-highlight-color:transparent; touch-action:manipulation; font-weight:700; font-size:var(--fs-16) }
+summary{ list-style:none; cursor:pointer }
+summary::-webkit-details-marker{ display:none }
+
+/* details */
+details > div{ padding:10px 12px 14px; font-size:var(--fs-16); line-height:1.55 }
+
+/* calc */
+#elec-calc .grid, .calc-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px }
+@media (max-width:640px){ #elec-calc .grid, .calc-grid{ grid-template-columns:1fr } }
+input, select{ min-height:44px; font-size:16px; padding:10px 12px }
+#elec-calc .result, .calc-result{ font-size:var(--fs-18); font-weight:800 }
+
+/* toolbar/search */
+.toolbar, .searchbar{ gap:8px }
+header .title, h1.page-title{ font-size:clamp(22px, 6vw, 28px); margin:8px 0 14px }
